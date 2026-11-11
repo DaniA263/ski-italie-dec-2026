@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ski Italie — 13→17 déc. 2026 · Projet du groupe</title>
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" id="mf">
+<meta name="theme-color" content="#0b3d6b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header>
+  <div class="wrap">
+    <h1>🎿 Ski en Italie — le projet du groupe</h1>
+    <p class="sub" id="subTitle">5 participants · 13/12/2026 → 17/12/2026 · budget 800 €/pers. hors nourriture</p>
+    <div class="badges">
+      <div class="badge" id="syncBadge">💾 <b>Local</b>sur cet appareil seulement</div>
+      <div class="badge">🏔️ <b>Zone</b>accessibles depuis Milan</div>
+      <div class="badge">🚗 <b>Conducteur principal</b>Membre 5, 22 ans, permis FR</div>
+      <div class="badge">👥 <b>5 personnes</b>19 à 22 ans</div>
+    </div>
+  </div>
+</header>
+
+<!-- ========== NAV ========== -->
+<nav>
+  <div class="wrap">
+    <a href="#dash"      class="on">Tableau de bord</a>
+    <a href="#tasks">📋 Tâches</a>
+    <a href="#budget">💶 Budget</a>
+    <a href="#reserver">🔗 Où réserver</a>
+    <a href="#vote">🗳️ Vote station</a>
+    <a href="#stations">🏔️ Stations</a>
+    <a href="#voiture">🚗 Voiture</a>
+    <a href="#depenses">🤝 Dépenses</a>
+    <a href="#dispo">📅 Dispos</a>
+    <a href="#chat">💬 Discussion</a>
+    <a href="#check">✅ Check-list</a>
+    <a href="#contacts">📞 Contacts</a>
+    <a href="#memoire">🧠 Mémoire</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ========== TABLEAU DE BORD ========== -->
+  <section id="dash">
+    <h2>📊 Tableau de bord</h2>
+    <div class="who-am-i" id="meBadge"></div>
+    <div class="grid g23" id="kpis" style="margin-bottom:14px"></div>
+    <div id="projBar"></div>
+
+    <div class="alert warn">
+      <b>⚠️ Le 13–17 décembre est très tôt dans la saison</b>
+      <p>Les domaines italiens ouvrent entre le 27 novembre et le 5 décembre, mais <b>pas à 100 %</b> : les remontées hautes et les liaisons entre secteurs ne tournent pas encore. Compte 40 à 70 % du domaine réellement skiable selon la neige de fin novembre. La seule façon de le savoir : appeler la station 3–5 jours avant le départ (numéros dans l'onglet Contacts).</p>
+    </div>
+
+    <div class="alert err">
+      <b>💰 Le budget de 800 €/personne est très serré</b>
+      <p>5 vols A/R directs Tel Aviv–Milan + 5 valises en soute = environ 1 250–1 750 € à eux seuls. Il reste 450–500 € par personne pour 4 nuits de logement, la voiture, l'essence, les forfaits et le matériel. C'est faisable à Livigno, Aprica ou Pontedilegno-Tonale. Nulle part ailleurs.</p>
+    </div>
+
+    <div class="alert ok">
+      <b>✅ Bonne nouvelle — le conducteur a 22 ans</b>
+      <p>Le Membre 5 a 22 ans avec un permis français depuis 5 ans. Cela change tout : avec la plupart des loueurs, la catégorie « Mini » n'est plus imposée et vous pouvez viser une compacte ou un break pour 5 personnes et les bagages. La contrainte reste le <b>supplément jeune conducteur</b> (moins de 25 ans), facturé <b>par jour et par conducteur</b>.</p>
+    </div>
+
+    <h3>Avancement par personne</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Membre</th><th>Âge</th><th>Permis</th><th>Rôle / tâches</th></tr></thead>
+      <tbody id="members"></tbody>
+    </table></div>
+    <p class="tiny">Clique sur « Modifier » pour mettre les prénoms et les âges réels. Chaque membre peut le faire lui-même : tout est synchronisé.</p>
+  </section>
+
+  <!-- ========== TÂCHES ========== -->
+  <section id="tasks">
+    <h2>📋 Répartition des tâches</h2>
+    <p class="lead">Chaque tâche a un responsable. Coche quand c'est fait — la personne sait qui a validé et quand.</p>
+    <div class="bar">
+      <button class="on" data-f="all">Tout le monde</button>
+      <button data-f="p1">Membre 1</button>
+      <button data-f="p2">Membre 2</button>
+      <button data-f="p3">Membre 3</button>
+      <button data-f="p4">Membre 4</button>
+      <button data-f="p5">Membre 5 (conducteur)</button>
+    </div>
+    <div class="grid" id="taskList"></div>
+
+    <details style="margin-top:16px">
+      <summary>➕ Ajouter une tâche</summary>
+      <div class="inner">
+        <div class="row">
+          <div><label>Intitulé</label><input id="ntT" placeholder="Ex : Réserver les forfaits Livigno"></div>
+          <div><label>Responsable</label><select id="ntW"></select></div>
+        </div>
+        <div class="row">
+          <div><label>Catégorie</label>
+            <select id="ntC">
+              <option>Vols</option><option>Logement</option><option>Voiture</option>
+              <option>Forfaits</option><option>Matériel</option><option>Station</option>
+              <option>Administratif</option><option>Divers</option>
+            </select></div>
+          <div><label>Priorité</label>
+            <select id="ntP"><option>basse</option><option>moyenne</option><option>haute</option></select></div>
+          <div><label>Échéance (jours)</label><input id="ntD" type="number" value="14" min="1"></div>
+        </div>
+        <label>Détail / consigne</label>
+        <textarea id="ntDet" placeholder="Ce qu'il faut faire exactement, les liens, les numéros…"></textarea>
+        <div class="actions"><button class="btn r" onclick="addTask()">Ajouter la tâche</button></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ========== BUDGET ========== -->
+  <section id="budget">
+    <h2>💶 Suivi du budget</h2>
+    <p class="lead">Budget cible : <b>800 € par personne</b>, hors nourriture — soit <b>4 000 € pour le groupe</b>. Enregistrez ici tout ce qui est engagé, réservé ou payé.</p>
+    <div class="grid g23">
+      <div>
+        <div class="tw"><table>
+          <thead><tr><th>Poste</th><th>Détail</th><th class="num">Montant</th><th>Par</th><th>Statut</th><th></th></tr></thead>
+          <tbody id="budgetList"></tbody>
+        </table></div>
+        <details style="margin-top:14px">
+          <summary>➕ Ajouter une dépense</summary>
+          <div class="inner">
+            <div class="row">
+              <div><label>Poste</label>
+                <select id="nbP">
+                  <option>Vols</option><option>Logement</option><option>Voiture</option>
+                  <option>Forfaits</option><option>Matériel</option><option>Essence / péages</option>
+                  <option>Assurance</option><option>Nourriture</option><option>Autre</option>
+                </select></div>
+              <div><label>Montant (€)</label><input id="nbM" type="number" step="0.01" placeholder="0.00"></div>
+            </div>
+            <label>Détail</label><input id="nbQ" placeholder="Ex : 5 billets Wizz Air + 5 valises soute">
+            <div class="row">
+              <div><label>Qui a payé</label><select id="nbWho"></select></div>
+              <div><label>Statut</label>
+                <select id="nbS"><option>estime</option><option>reserve</option><option>paye</option></select></div>
+            </div>
+            <div class="actions"><button class="btn r" onclick="addBudget()">Enregistrer</button></div>
+          </div>
+        </details>
+      </div>
+      <div class="card" id="budgetTotal"></div>
+    </div>
+  </section>
+
+  <!-- ========== OÙ RÉSERVER ========== -->
+  <section id="reserver">
+    <h2>🔗 Où réserver — tous les liens directs</h2>
+    <p class="lead">Chacun réserve de son côté, mais avec les bons liens et les bonnes consignes. Ouvre une rubrique pour voir les plateformes. Tous les liens s'ouvrent sur le site officiel.</p>
+    <div id="prestaList"></div>
+
+    <div class="alert warn" style="margin-top:16px">
+      <b>🎿 Les skis en bagage avion — le poste oublié</b>
+      <p>Si vous emportez vos skis depuis Israël, c'est un <b>bagage spécial facturé EN PLUS de la valise en soute</b>, par personne et par sens. Pour 4 jours de ski, la location sur place revient presque toujours moins cher. Calcul à faire avant de boucler les valises.</p>
+    </div>
+    <div class="alert warn">
+      <b>🅿️ Le stationnement</b>
+      <p>Beaucoup d'appartements en station n'ont pas de place incluse. En décembre, avec la neige, une place couverte vaut de l'or. Vérifie ce point AVANT de réserver l'Airbnb, pas après.</p>
+    </div>
+  </section>
+
+  <!-- ========== VOTE ========== -->
+  <section id="vote">
+    <h2>🗳️ Vote pour la station</h2>
+    <p class="lead">Chacun classe ses 3 stations préférées. 3 points pour le 1er choix, 2 pour le 2e, 1 pour le 3e. Le classement se met à jour en direct.</p>
+    <div class="grid g2">
+      <div class="card">
+        <h3>Mon vote</h3>
+        <label>Choix 1 — 3 points</label><select id="v1"></select>
+        <label>Choix 2 — 2 points</label><select id="v2"></select>
+        <label>Choix 3 — 1 point</label><select id="v3"></select>
+        <div class="actions"><button class="btn r" onclick="addVote()">Enregistrer mon vote</button></div>
+        <p class="tiny" style="margin-top:10px">Tu peux revoter autant de fois que tu veux : ton dernier vote remplace le précédent.</p>
+      </div>
+      <div class="card">
+        <h3>Classement</h3>
+        <div id="voteList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== STATIONS ========== -->
+  <section id="stations">
+    <h2>🏔️ Les stations — analyse complète</h2>
+    <p class="lead">Classées selon tes 8 critères : sécurité sur les pistes, temps de trajet depuis l'aéroport de Milan, nombre de pistes, qualité de la neige, prix du logement, rapport qualité/prix, prix du forfait et location de matériel.</p>
+    <div class="card" style="margin-bottom:14px">
+      <h3>🎿 Distance depuis la gare de Malpensa</h3>
+      <p class="tiny">La gare de Malpensa T1 relie Milan Cadorna en 40 min. Depuis la gare, il faut ajouter le trajet vers la station — d'où l'intérêt d'une voiture.</p>
+      <div class="tw"><table style="min-width:480px">
+        <thead><tr><th>Station</th><th>Depuis MXP en voiture</th><th class="num">Distance / 100 km</th><th class="num">Temps / 100 km</th><th class="num">Dénivelé</th></tr></thead>
+        <tbody id="distTable"></tbody>
+      </table></div>
+    </div>
+    <div class="grid g2" id="stationGrid"></div>
+  </section>
+
+  <!-- ========== VOITURE ========== -->
+  <section id="voiture">
+    <h2>🚗 La voiture — la partie qui a changé</h2>
+    <div class="alert ok">
+      <b>Avec un conducteur de 22 ans, tout s'ouvre</b>
+      <p>Le Membre 5 a 22 ans et un permis français depuis 5 ans. La condition « permis détenu depuis au moins 1 an » est largement remplie, et la contrainte de catégorie Mini imposée aux 19 ans disparaît. Vous pouvez louer une compacte ou un break capable d'embarquer 5 personnes et les bagages.</p>
+    </div>
+    <div class="alert warn">
+      <b>Mais le supplément jeune conducteur s'applique toujours</b>
+      <p>Il concerne les conducteurs de <b>moins de 25 ans</b>, et il est facturé <b>par jour et par conducteur</b>. Deux conséquences : (1) ne mettez qu'UN seul conducteur de moins de 25 ans sur le contrat ; (2) si un autre membre veut conduire, passez-le en « conducteur additionnel » (5 €/jour chez Enterprise) plutôt que de payer un second supplément jeune conducteur.</p>
+    </div>
+
+    <h3>Ce que coûte le supplément selon le loueur</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Loueur</th><th>Âge minimum</th><th>Supplément 22–24 ans</th><th>Caution</th><th>Cartes acceptées</th></tr></thead>
+      <tbody>
+        <tr><td><b>Enterprise / National / Alamo</b><br><span class="tiny">MXP T1 et T2</span></td><td>21 ans</td><td>11 €/jour HT (22–24 ans)<br><span class="tiny">22 €/jour pour 19–21 ans</span></td><td>500 € toutes catégories</td><td>Crédit <b>et</b> débit (Visa, Mastercard, AMEX). Prépayées, numériques et liquide refusés.</td></tr>
+        <tr><td><b>Avis</b><br><span class="tiny">MXP T2</span></td><td>21 ans (19 ans groupes A/B/E)</td><td>~25,66 €/jour</td><td>~234 USD selon catégorie</td><td>Crédit au nom du conducteur. Visa, Mastercard, Diners, Discover, AMEX. <b>JCB refusé.</b></td></tr>
+        <tr><td><b>Hertz</b></td><td>21 ans avec supplément<br>25 ans sans</td><td>36,60 €/jour TTC<br><span class="tiny">plafonné à 402,60 € TTC</span></td><td>200 € minimum<br>+500 € sans SuperCover</td><td>Crédit ou débit. La caution est prélevée sur la carte.</td></tr>
+        <tr><td><b>SIXT</b><br><span class="tiny">MXP T1 et T2</span></td><td>18 ans annoncé, catégories limitées</td><td>À confirmer selon la catégorie</td><td>Pré-autorisation selon catégorie</td><td>Crédit ou débit — montant bloqué, pas débité, libéré au retour.</td></tr>
+        <tr><td><b>Keddy by Europcar</b><br><span class="tiny">MXP T1</span></td><td>18 ans</td><td>~24 €/jour</td><td>~800 €, remboursé en 15–30 jours</td><td>Crédit <b>et</b> débit. Crédit : Visa, MC, Diners, AMEX. Débit : Visa, MC, JCB, AMEX.</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="alert err" style="margin-top:16px">
+      <b>💳 La règle qui fait échouer les locations au comptoir</b>
+      <p>La carte présentée à l'agence doit être <b>au nom du conducteur</b>. Une caution de 500 € (Enterprise/National) ou 800 € (Europcar) immobilisés pendant 15 à 30 jours, c'est un vrai sujet quand on part à 5 avec un budget serré. Prévoyez une carte de crédit avec un plafond suffisant — pas une carte de débit à petit plafond. Une carte prépayée est refusée partout.</p>
+    </div>
+
+    <h3>Documents et obligations</h3>
+    <div class="grid g2">
+      <div class="card">
+        <h3>À présenter au comptoir</h3>
+        <ul style="margin:0;padding-left:18px">
+          <li>Passeport en cours de validité</li>
+          <li>Permis de conduire français en original (Membre 5)</li>
+          <li>Permis de conduire international — <b>nécessaire pour un permis israélien</b>, à vérifier selon le permis utilisé</li>
+          <li>Carte de crédit au nom du conducteur</li>
+          <li>Confirmation de réservation</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Obligatoire sur la route</h3>
+        <ul style="margin:0;padding-left:18px">
+          <li><b>Pneus neige ou chaînes</b> — obligatoires du 15 novembre au 15 avril sur les routes de montagne italiennes. Demandez une confirmation écrite au loueur avant de partir.</li>
+          <li>Gilet réfléchissant et triangle (fournis par le loueur)</li>
+          <li>Photos horodatées de la voiture au retrait, tous les angles, toit et jantes incluses. C'est votre seule protection contre une facture de dommages inventée.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert warn" style="margin-top:16px">
+      <b>🏔️ La route vers Livigno peut fermer</b>
+      <p>Le tunnel de la Forcola et le Passo Foscagno ferment en cas de forte neige. Regardez l'état des routes la veille du départ et prévoyez un plan B. <b>Astuce :</b> l'essence est détaxée à Livigno — faites le plein là-bas, pas avant.</p>
+    </div>
+  </section>
+
+  <!-- ========== DÉPENSES ========== -->
+  <section id="depenses">
+    <h2>🤝 Dépenses partagées</h2>
+    <p class="lead">Pour les frais avancés par une personne pour tout le groupe : courses, essence, péages, restaurant. Le site calcule qui doit combien à qui.</p>
+    <div class="grid g2">
+      <div class="card">
+        <h3>Ajouter une dépense</h3>
+        <label>Qui a payé ?</label><select id="dp"></select>
+        <label>Quoi ?</label><input id="dq" placeholder="Courses, essence, péage, restaurant…">
+        <label>Montant (€)</label><input id="dm" type="number" step="0.01">
+        <div class="actions"><button class="btn r" onclick="addDepShare()">Ajouter</button></div>
+        <hr>
+        <div id="depList"></div>
+      </div>
+      <div class="card">
+        <h3>Qui doit combien à qui</h3>
+        <div id="depSettle"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DISPOS ========== -->
+  <section id="dispo">
+    <h2>📅 Disponibilités et contribution</h2>
+    <p class="lead">Indique combien tu peux mettre dans le projet et tes contraintes. Ça évite les malentendus au moment de payer.</p>
+    <div class="grid g2">
+      <div class="card">
+        <h3>Ma situation</h3>
+        <label>Ma contribution au projet (€)</label>
+        <input id="slV" type="number" step="1" placeholder="800">
+        <label>Contraintes / remarques</label>
+        <textarea id="slN" placeholder="Ex : je peux avancer l'Airbnb, remboursé ensuite · je ne suis pas dispo le 12 au soir · je n'ai pas de carte de crédit…"></textarea>
+        <div class="actions"><button class="btn r" onclick="addSlot()">Enregistrer</button></div>
+      </div>
+      <div class="card">
+        <h3>Ce que le groupe a déclaré</h3>
+        <div id="slotList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CHAT ========== -->
+  <section id="chat">
+    <h2>💬 Discussion du groupe</h2>
+    <p class="lead">Le fil de discussion du projet. Tout ce qui est dit ici reste avec la mémoire du voyage.</p>
+    <div class="chat" id="chatBox"></div>
+    <div class="row" style="margin-top:10px">
+      <div style="flex:4"><input id="msgIn" placeholder="Écris ton message…" onkeydown="if(event.key==='Enter')sendMsg()"></div>
+      <div style="flex:1"><button class="btn r blk" onclick="sendMsg()">Envoyer</button></div>
+    </div>
+  </section>
+
+  <!-- ========== CHECK-LIST ========== -->
+  <section id="check">
+    <h2>✅ Check-list — ce qu'on oublie toujours</h2>
+    <p class="lead">Chacun coche de son côté, sur son appareil. Recharge la page si tu changes d'appareil.</p>
+    <div class="check" id="checkList"></div>
+  </section>
+
+  <!-- ========== CONTACTS ========== -->
+  <section id="contacts">
+    <h2>📞 Contacts et numéros</h2>
+    <p class="lead">Enregistrez ces numéros dans vos téléphones AVANT de partir. Sur mobile, toucher un numéro lance l'appel.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Qui</th><th>Numéro</th><th class="tiny">Détail</th></tr></thead>
+      <tbody id="contactList"></tbody>
+    </table></div>
+    <div class="alert warn" style="margin-top:16px">
+      <b>🆘 Secours sur les pistes</b>
+      <p><b>112</b> fonctionne depuis n'importe quel téléphone, y compris étranger. Sur les pistes de Livigno, chaque balise porte le nom ET le numéro de la piste — c'est exactement ce qu'il faut communiquer aux secours. Retiens-le.</p>
+    </div>
+    <div class="alert err">
+      <b>⚖️ Deux règles italiennes que presque tout le monde ignore</b>
+      <p><b>1. Casque obligatoire pour TOUS</b>, sans limite d'âge, depuis le 10 août 2025 (décret-loi 96/2025). Amende de 100 à 150 € par personne.<br>
+      <b>2. Assurance responsabilité civile obligatoire</b> sur les pistes depuis 2022. Sans attestation en anglais : 3 €/jour/personne sur place, et jusqu'à 150 € d'amende par personne si on ne peut pas prouver. Et attention : <b>le secours sur piste n'est PAS couvert</b> par cette assurance.</p>
+    </div>
+  </section>
+
+  <!-- ========== MÉMOIRE ========== -->
+  <section id="memoire">
+    <h2>🧠 Mémoire du projet</h2>
+    <p class="lead">Tout ce qui est décidé, réservé ou payé reste consigné ici. C'est la mémoire du voyage : si quelqu'un décroche trois semaines, il retrouve tout l'état du projet en ouvrant la page.</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3>Ce que la mémoire contient</h3>
+        <div class="kv"><span>Tâches et responsables</span><b id="memTasks">—</b></div>
+        <div class="kv"><span>Dépenses enregistrées</span><b id="memBudget">—</b></div>
+        <div class="kv"><span>Dépenses partagées</span><b id="memDep">—</b></div>
+        <div class="kv"><span>Votes enregistrés</span><b id="memVote">—</b></div>
+        <div class="kv"><span>Messages échangés</span><b id="memChat">—</b></div>
+        <div class="kv"><span>Contributions déclarées</span><b id="memSlots">—</b></div>
+        <div class="kv"><span>Dernière modification</span><b id="memWhen">—</b></div>
+        <div class="actions" style="margin-top:14px">
+          <button class="btn g" onclick="exportData()">⬇️ Exporter la mémoire (JSON)</button>
+          <button class="btn s" onclick="window.print()">🖨️ Imprimer / PDF</button>
+          <button class="btn s" onclick="resetAll()">🗑️ Réinitialiser</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Le projet en une page</h3>
+        <div class="kv"><span>Dates</span><b>13 → 17 décembre 2026</b></div>
+        <div class="kv"><span>Participants</span><b>5 personnes, 19 à 22 ans</b></div>
+        <div class="kv"><span>Départ</span><b>Tel Aviv (TLV)</b></div>
+        <div class="kv"><span>Arrivée</span><b>Milan Malpensa (MXP)</b></div>
+        <div class="kv"><span>Vols</span><b>Directs sans escale, 5 valises soute</b></div>
+        <div class="kv"><span>Voiture</span><b>Louée à MXP · conducteur Membre 5 (22 ans)</b></div>
+        <div class="kv"><span>Budget</span><b>800 €/personne hors nourriture</b></div>
+        <div class="kv"><span>Station recommandée</span><b>Livigno</b></div>
+        <div class="kv"><span>Sécurité</span><b>Casque + assurance RC obligatoires</b></div>
+      </div>
+    </div>
+
+    <details style="margin-top:16px">
+      <summary>🔧 Activer le partage entre les 5 téléphones (2 minutes)</summary>
+      <div class="inner">
+        <p>Ce site fonctionne tout de suite, mais dans deux modes :</p>
+        <div class="kv"><span><b>Mode local</b></span><span>Chaque appareil garde ses propres données. Parfait pour tester, insuffisant pour coordonner 5 personnes.</span></div>
+        <div class="kv"><span><b>Mode partagé</b></span><span>Tout le monde voit la même chose en temps réel : une tâche cochée par l'un apparaît chez les autres instantanément.</span></div>
+        <hr>
+        <p><b>Pour passer en mode partagé :</b></p>
+        <ol style="padding-left:20px">
+          <li>Va sur <a href="https://console.firebase.google.com" target="_blank" rel="noopener">console.firebase.google.com</a> et crée un projet (gratuit, aucune carte bancaire).</li>
+          <li>Dans le menu de gauche, clique sur <b>Realtime Database</b> puis <b>Créer une base de données</b>. Choisis une région européenne.</li>
+          <li>Dans l'onglet <b>Règles</b>, colle ceci puis publie :<br>
+            <code style="display:block;background:#eef4fa;padding:9px;border-radius:7px;margin-top:6px;font-size:.8rem;overflow-x:auto">{"rules":{".read":true,".write":true}}</code>
+            <span class="tiny">Ces règles rendent la base lisible par quiconque connaît l'URL. Le nom de la « room » (<code>ski-italie-dec2026</code>) fait office de clé. Pour un projet de vacances c'est adapté ; on peut durcir plus tard.</span></li>
+          <li>Copie l'URL affichée en haut de la page Realtime Database (elle ressemble à <code>https://xxx-default-rtdb.europe-west1.firebasedatabase.app</code>).</li>
+          <li>Ouvre le fichier <b>app.js</b>, tout en haut, et colle-la dans <code>dbUrl: ""</code>. Enregistre et republie.</li>
+        </ol>
+        <p class="tiny">Tant que <code>dbUrl</code> est vide, le site tourne en mode local sans aucune erreur. Le badge en haut de page indique toujours le mode actif.</p>
+      </div>
+    </details>
+
+    <details style="margin-top:10px">
+      <summary>📦 Comment publier le site pour que les 5 puissent l'ouvrir</summary>
+      <div class="inner">
+        <p>Trois fichiers suffisent : <code>index.html</code>, <code>style.css</code>, <code>app.js</code>. Il n'y a aucun serveur à gérer.</p>
+        <div class="kv"><span><b>Option 1 — Netlify Drop</b></span><span>Glisse le dossier sur <a href="https://app.netlify.com/drop" target="_blank" rel="noopener">app.netlify.com/drop</a>. Tu obtiens une adresse en 30 secondes.</span></div>
+        <div class="kv"><span><b>Option 2 — GitHub Pages</b></span><span>Pousse les 3 fichiers sur GitHub, puis Settings → Pages → activer sur la branche main.</span></div>
+        <div class="kv"><span><b>Option 3 — Vercel</b></span><span>Importer le dépôt sur <a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a>.</span></div>
+        <hr>
+        <p>Le site s'installe comme une application sur téléphone (icône sur l'écran d'accueil, plein écran) : sur iPhone via <b>Partager → Sur l'écran d'accueil</b>, sur Android via <b>⋮ → Installer l'application</b>.</p>
+      </div>
+    </details>
+  </section>
+
+</main>
+
+<footer>
+  Projet ski Italie 13→17 décembre 2026 · 5 participants · dossier préparé le 11 novembre 2026<br>
+  Les prix, dates d'ouverture et conditions évoluent : vérifiez toujours sur les liens officiels avant de réserver.
+</footer>
+
+<script>
+/* PWA : manifest généré à la volée, aucun fichier externe */
+const MF={name:"Ski Italie 13-17 déc 2026",short_name:"Ski Italie",start_url:location.href,
+display:"standalone",background_color:"#f2f6fa",theme_color:"#0b3d6b",
+icons:[{src:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b3d6b'/%3E%3Ctext x='50' y='70' font-size='58' text-anchor='middle'%3E%F0%9F%8E%BF%3C/text%3E%3C/svg%3E",
+sizes:"any",type:"image/svg+xml"}]};
+document.getElementById("mf").href=URL.createObjectURL(new Blob([JSON.stringify(MF)],{type:"application/json"}));
+</script>
+<script src="app.js"></script>
+</body>
+</html>
